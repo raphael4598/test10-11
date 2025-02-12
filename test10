@@ -1,0 +1,74 @@
+*** Settings ***
+Library           SeleniumLibrary
+ 
+*** Variables ***
+${URL}            http://automationexercise.com
+${BROWSER}        chrome
+${EMAIL}          testuser12300@example.com
+ 
+*** Test Cases ***
+Verify Subscription in Home Page
+    [Documentation]    Test Case 10: Verify Subscription in home page
+    Open Browser    ${URL}    ${BROWSER}
+    Maximize Browser Window
+    Wait Until Page Contains    Home
+ 
+    # เพิ่มการรอให้แน่ใจว่า element ปรากฏ
+    Wait Until Element Is Visible    xpath=//h2[contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'subscription')]    20s
+    Scroll Element Into View    xpath=//h2[contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'subscription')]
+ 
+    # ตรวจสอบว่ามีข้อความ subscription โดยไม่แยกแยะตัวพิมพ์ใหญ่-เล็ก
+    Page Should Contain Element    xpath=//h2[contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'subscription')]
+ 
+    Input Text    id=susbscribe_email    ${EMAIL}
+    Click Button    id=subscribe
+ 
+    # เพิ่มการรอให้แน่ใจว่าข้อความยืนยันปรากฏ
+    Wait Until Page Contains    You have been successfully subscribed!    20s
+ 
+    Close Browser
+ 
+Automation Exercise
+This is for automation practice
+ 
+*** Settings ***
+Library           SeleniumLibrary
+ 
+*** Variables ***
+${URL}            http://automationexercise.com
+${BROWSER}        chrome
+${EMAIL}          testuser12300@example.com
+ 
+*** Test Cases ***
+Verify Subscription in Cart Page
+    [Documentation]    Test Case 11: Verify Subscription in Cart page
+    Open Browser    ${URL}    ${BROWSER}
+    Maximize Browser Window
+    Wait Until Page Contains    Home
+ 
+    # คลิกไปที่หน้า Cart
+    Click Link    Cart
+    Wait Until Page Contains    Shopping Cart    20s
+ 
+    # เพิ่มการรอและเลื่อนไปยัง Subscription
+    Wait Until Element Is Visible    xpath=//h2[contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'subscription')]    20s
+    Scroll Element Into View    xpath=//h2[contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'subscription')]
+ 
+    # ตรวจสอบว่ามีข้อความ Subscription
+    Page Should Contain Element    xpath=//h2[contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'subscription')]
+ 
+    # กรอกอีเมลและสมัครสมาชิก
+    Input Text    id=susbscribe_email    ${EMAIL}
+    Click Button    id=subscribe
+ 
+    # ตรวจสอบข้อความยืนยันการสมัคร
+    Wait Until Page Contains    You have been successfully subscribed!    20s
+ 
+    # จับภาพหน้าจอเพื่อ Debug
+    Capture Page Screenshot
+ 
+    Close Browser
+ 
+Automation Exercise
+This is for automation practice
+ 
